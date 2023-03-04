@@ -57,12 +57,12 @@
                     <navigationItem key="navigationItem" title="Items" id="nZi-gl-xaR">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="BEI-KH-TX6">
                             <connections>
-                                <action selector="addButtonPressed:" destination="5qe-Wh-F71" id="pM8-M0-6r2"/>
+                                <action selector="addButtonPressed:" destination="5qe-Wh-F71" id="FWi-HJ-QD8"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="searchBar" destination="ToJ-9l-zBk" id="nCb-AL-an5"/>
+                        <outlet property="searchBar" destination="ToJ-9l-zBk" id="EyP-W4-c7d"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5pd-nv-o1x" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
