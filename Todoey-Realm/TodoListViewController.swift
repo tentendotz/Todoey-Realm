@@ -8,7 +8,7 @@
 import UIKit
 
 class Item {
-    let title = ""
+    var title = ""
     var done = false
 }
 
@@ -34,9 +34,27 @@ class TodoListViewController: UITableViewController {
     }
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-
+        let alert = UIAlertController(title: "Add New Todo", message: "", preferredStyle: .alert)
+        var textField = UITextField()
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
+        let addAction = UIAlertAction(title: "Add Item", style: .default) { action in
+            let newItem = Item()
+            newItem.title = textField.text!
+            newItem.done = false
+            
+            self.todoItems.append(newItem)
+            self.tableView.reloadData()
+        }
+        
+        alert.addTextField { alertTextField in
+            alertTextField.placeholder = "Create new item"
+            textField = alertTextField
+        }
+        
+        [cancelAction, addAction].forEach { alert.addAction($0) }
+        present(alert, animated: true)
     }
-    
 }
 
 
