@@ -55,7 +55,15 @@ extension TodoListViewController {
         var content = cell.defaultContentConfiguration()
         content.text = item.title
         cell.contentConfiguration = content
+        cell.accessoryType = item.done ? .checkmark : .none
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        todoItems[indexPath.row].done = !todoItems[indexPath.row].done
+        
+        tableView.reloadData()
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
