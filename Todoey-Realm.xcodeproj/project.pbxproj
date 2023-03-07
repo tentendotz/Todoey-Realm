@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06626CFE29B6022000C3EB0F /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06626CFD29B6022000C3EB0F /* CategoryViewController.swift */; };
 		069FE30A29B3725100D6F9FC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069FE30929B3725100D6F9FC /* AppDelegate.swift */; };
 		069FE30C29B3725100D6F9FC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069FE30B29B3725100D6F9FC /* SceneDelegate.swift */; };
 		069FE30E29B3725100D6F9FC /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069FE30D29B3725100D6F9FC /* TodoListViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		06626CFD29B6022000C3EB0F /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		069FE30629B3725100D6F9FC /* Todoey-Realm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Todoey-Realm.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		069FE30929B3725100D6F9FC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		069FE30B29B3725100D6F9FC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -58,6 +60,7 @@
 			children = (
 				069FE30929B3725100D6F9FC /* AppDelegate.swift */,
 				069FE30B29B3725100D6F9FC /* SceneDelegate.swift */,
+				06626CFD29B6022000C3EB0F /* CategoryViewController.swift */,
 				069FE30D29B3725100D6F9FC /* TodoListViewController.swift */,
 				069FE30F29B3725100D6F9FC /* Main.storyboard */,
 				069FE31229B3725300D6F9FC /* Assets.xcassets */,
@@ -138,6 +141,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06626CFE29B6022000C3EB0F /* CategoryViewController.swift in Sources */,
 				069FE30E29B3725100D6F9FC /* TodoListViewController.swift in Sources */,
 				069FE30A29B3725100D6F9FC /* AppDelegate.swift in Sources */,
 				069FE30C29B3725100D6F9FC /* SceneDelegate.swift in Sources */,
