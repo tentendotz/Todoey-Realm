@@ -7,8 +7,14 @@
 
 import UIKit
 
+class Category {
+    var name = ""
+}
+
 class CategoryViewController: UITableViewController {
 
+    var categories = [Category]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,19 +38,19 @@ class CategoryViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return categories.count
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
+        let category = categories[indexPath.row]
+        
+        var content = cell.defaultContentConfiguration()
+        content.text = category.name
+        cell.contentConfiguration = content
 
         return cell
     }
-    */
 
 
     /*
