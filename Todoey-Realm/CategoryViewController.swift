@@ -53,7 +53,12 @@ class CategoryViewController: UITableViewController {
     }
     
     
-    // MARK: - Table view data source
+}
+ 
+
+extension CategoryViewController {
+    
+    // MARK: - TableView DataSource & Delegate Methods
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categories.count
@@ -69,10 +74,15 @@ class CategoryViewController: UITableViewController {
 
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "goToItems", sender: self)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 
-
+    
     /*
-    // MARK: - Navigation
+    // MARK: - Navigation Transitions
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -80,5 +90,4 @@ class CategoryViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
 }
