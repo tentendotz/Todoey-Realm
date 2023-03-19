@@ -7,11 +7,6 @@
 
 import UIKit
 
-class Item {
-    var title = ""
-    var done = false
-}
-
 class TodoListViewController: UITableViewController {
 
     @IBOutlet weak var searchBar: UISearchBar!

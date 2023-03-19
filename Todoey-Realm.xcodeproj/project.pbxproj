@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0630818C29C7402C0069CB55 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0630818B29C7402C0069CB55 /* Category.swift */; };
+		0630818E29C741010069CB55 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0630818D29C741010069CB55 /* Item.swift */; };
 		06626CFE29B6022000C3EB0F /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06626CFD29B6022000C3EB0F /* CategoryViewController.swift */; };
 		069FE30A29B3725100D6F9FC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069FE30929B3725100D6F9FC /* AppDelegate.swift */; };
 		069FE30C29B3725100D6F9FC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069FE30B29B3725100D6F9FC /* SceneDelegate.swift */; };
@@ -19,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0630818B29C7402C0069CB55 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		0630818D29C741010069CB55 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		06626CFD29B6022000C3EB0F /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		069FE30629B3725100D6F9FC /* Todoey-Realm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Todoey-Realm.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		069FE30929B3725100D6F9FC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -94,6 +98,8 @@
 		06B24BC429C6082300A3D11D /* Data Models */ = {
 			isa = PBXGroup;
 			children = (
+				0630818B29C7402C0069CB55 /* Category.swift */,
+				0630818D29C741010069CB55 /* Item.swift */,
 			);
 			path = "Data Models";
 			sourceTree = "<group>";
@@ -177,8 +183,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				06626CFE29B6022000C3EB0F /* CategoryViewController.swift in Sources */,
+				0630818C29C7402C0069CB55 /* Category.swift in Sources */,
 				069FE30E29B3725100D6F9FC /* TodoListViewController.swift in Sources */,
 				069FE30A29B3725100D6F9FC /* AppDelegate.swift in Sources */,
+				0630818E29C741010069CB55 /* Item.swift in Sources */,
 				069FE30C29B3725100D6F9FC /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
