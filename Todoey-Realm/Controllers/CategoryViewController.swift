@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import RealmSwift
 
 class CategoryViewController: UITableViewController {
 
-    var categories = [Category]()
+    let realm = try! Realm()
+    var categories: Results<Category>?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,10 +40,10 @@ class CategoryViewController: UITableViewController {
         let addAction = UIAlertAction(title: "Add", style: .default) { action in
             let newCategory = Category()
             newCategory.name = textField.text!
-            self.categories.append(newCategory)
+            
 
-            let indexPath = IndexPath(row: self.categories.count - 1, section: 0)
-            self.tableView.insertRows(at: [indexPath], with: .fade)
+//            let indexPath = IndexPath(row: self.categories.count - 1, section: 0)
+//            self.tableView.insertRows(at: [indexPath], with: .fade)
         }
 
         [cancelAction, addAction].forEach { alert.addAction($0) }
@@ -57,15 +59,15 @@ extension CategoryViewController {
     // MARK: - TableView DataSource & Delegate Methods
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categories.count
+        return categories?.count ?? 1
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
-        let category = categories[indexPath.row]
+        let category = categories?[indexPath.row]
         
         var content = cell.defaultContentConfiguration()
-        content.text = category.name
+        content.text = category?.name ?? "No Categories Added Yet."
         cell.contentConfiguration = content
 
         return cell
@@ -73,9 +75,9 @@ extension CategoryViewController {
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Destructive") { action, view, completionHandler in
-            self.categories.remove(at: indexPath.row)
-            self.tableView.deleteRows(at: [indexPath], with: .fade)
-            completionHandler(true)
+            
+//            self.tableView.deleteRows(at: [indexPath], with: .fade)
+//            completionHandler(true)
         }
         
         deleteAction.image = UIImage(systemName: "trash")
