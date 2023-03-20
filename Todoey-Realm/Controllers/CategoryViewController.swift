@@ -16,6 +16,8 @@ class CategoryViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        loadCategories()
+        
         guard let navBar = navigationController?.navigationBar else { fatalError("Navigation controller does not exist.") }
         navBar.prefersLargeTitles = true
         navBar.tintColor = UIColor.white
@@ -64,7 +66,10 @@ class CategoryViewController: UITableViewController {
         tableView.insertRows(at: [indexPath], with: .fade)
     }
     
-    
+    func loadCategories() {
+        categories = realm.objects(Category.self)
+        tableView.reloadData()
+    }
 }
  
 
