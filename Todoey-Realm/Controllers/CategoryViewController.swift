@@ -40,14 +40,28 @@ class CategoryViewController: UITableViewController {
         let addAction = UIAlertAction(title: "Add", style: .default) { action in
             let newCategory = Category()
             newCategory.name = textField.text!
-            
-
-//            let indexPath = IndexPath(row: self.categories.count - 1, section: 0)
-//            self.tableView.insertRows(at: [indexPath], with: .fade)
+            self.save(category: newCategory)
         }
 
         [cancelAction, addAction].forEach { alert.addAction($0) }
         present(alert, animated: true, completion: nil)
+    }
+    
+    
+    //MARK: - Data Manipulation Methods
+    
+    func save(category: Category) {
+        do {
+            try realm.write {
+                realm.add(category)
+            }
+        } catch {
+            print("Error saving category, \(error)")
+        }
+        
+        guard let categories else { return }
+        let indexPath = IndexPath(row: categories.count - 1, section: 0)
+        tableView.insertRows(at: [indexPath], with: .fade)
     }
     
     
