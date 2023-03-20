@@ -7,10 +7,6 @@
 
 import UIKit
 
-class Category {
-    var name = ""
-}
-
 class CategoryViewController: UITableViewController {
 
     var categories = [Category]()
