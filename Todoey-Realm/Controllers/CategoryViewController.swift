@@ -94,11 +94,21 @@ extension CategoryViewController {
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Destructive") { action, view, completionHandler in
-            
-//            self.tableView.deleteRows(at: [indexPath], with: .fade)
-//            completionHandler(true)
+            guard let categoryForDeletion = self.categories?[indexPath.row] else {
+                completionHandler(false)
+                return
+            }
+            do {
+                try self.realm.write {
+                    self.realm.delete(categoryForDeletion)
+                    self.tableView.deleteRows(at: [indexPath], with: .fade)
+                    completionHandler(true)
+                }
+            } catch {
+                print("Error deleting category, \(error)")
+                completionHandler(false)
+            }
         }
-        
         deleteAction.image = UIImage(systemName: "trash")
         let swipeConfig = UISwipeActionsConfiguration(actions: [deleteAction])
         return swipeConfig
