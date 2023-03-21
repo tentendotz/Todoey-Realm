@@ -6,13 +6,17 @@
 //
 
 import UIKit
+import RealmSwift
 
 class CategoryViewController: UITableViewController {
 
-    var categories = [Category]()
+    let realm = try! Realm()
+    var categories: Results<Category>?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        loadCategories()
         
         guard let navBar = navigationController?.navigationBar else { fatalError("Navigation controller does not exist.") }
         navBar.prefersLargeTitles = true
@@ -38,10 +42,7 @@ class CategoryViewController: UITableViewController {
         let addAction = UIAlertAction(title: "Add", style: .default) { action in
             let newCategory = Category()
             newCategory.name = textField.text!
-            self.categories.append(newCategory)
-
-            let indexPath = IndexPath(row: self.categories.count - 1, section: 0)
-            self.tableView.insertRows(at: [indexPath], with: .fade)
+            self.save(category: newCategory)
         }
 
         [cancelAction, addAction].forEach { alert.addAction($0) }
@@ -49,6 +50,26 @@ class CategoryViewController: UITableViewController {
     }
     
     
+    //MARK: - Data Manipulation Methods
+    
+    func save(category: Category) {
+        do {
+            try realm.write {
+                realm.add(category)
+            }
+        } catch {
+            print("Error saving category, \(error)")
+        }
+        
+        guard let categories else { return }
+        let indexPath = IndexPath(row: categories.count - 1, section: 0)
+        tableView.insertRows(at: [indexPath], with: .fade)
+    }
+    
+    func loadCategories() {
+        categories = realm.objects(Category.self)
+        tableView.reloadData()
+    }
 }
  
 
@@ -57,15 +78,15 @@ extension CategoryViewController {
     // MARK: - TableView DataSource & Delegate Methods
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categories.count
+        return categories?.count ?? 1
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
-        let category = categories[indexPath.row]
+        let category = categories?[indexPath.row]
         
         var content = cell.defaultContentConfiguration()
-        content.text = category.name
+        content.text = category?.name ?? "No Categories Added Yet."
         cell.contentConfiguration = content
 
         return cell
@@ -73,11 +94,21 @@ extension CategoryViewController {
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Destructive") { action, view, completionHandler in
-            self.categories.remove(at: indexPath.row)
-            self.tableView.deleteRows(at: [indexPath], with: .fade)
-            completionHandler(true)
+            guard let categoryForDeletion = self.categories?[indexPath.row] else {
+                completionHandler(false)
+                return
+            }
+            do {
+                try self.realm.write {
+                    self.realm.delete(categoryForDeletion)
+                    self.tableView.deleteRows(at: [indexPath], with: .fade)
+                    completionHandler(true)
+                }
+            } catch {
+                print("Error deleting category, \(error)")
+                completionHandler(false)
+            }
         }
-        
         deleteAction.image = UIImage(systemName: "trash")
         let swipeConfig = UISwipeActionsConfiguration(actions: [deleteAction])
         return swipeConfig
