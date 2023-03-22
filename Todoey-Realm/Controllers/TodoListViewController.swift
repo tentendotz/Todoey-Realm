@@ -43,13 +43,32 @@ class TodoListViewController: UITableViewController {
             let newItem = Item()
             newItem.title = textField.text!
             newItem.done = false
-            
-//            self.tableView.reloadData()
+            newItem.dateCreated = Date()
+            self.save(item: newItem)
         }
         
         [cancelAction, addAction].forEach { alert.addAction($0) }
         present(alert, animated: true)
     }
+    
+    
+    //MARK: - Data Manipulation Methods
+    
+    func save(item: Item) {
+        do {
+            try self.realm.write {
+                realm.add(item)
+            }
+        } catch {
+            print("Error saving new items, \(error)")
+        }
+        
+        guard let todoItems else { return }
+        let indexPath = IndexPath(row: todoItems.count - 1, section: 0)
+        tableView.insertRows(at: [indexPath], with: .fade)
+    }
+    
+
 }
 
 
