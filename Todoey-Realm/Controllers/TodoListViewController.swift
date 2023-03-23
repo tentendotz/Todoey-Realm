@@ -18,6 +18,8 @@ class TodoListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        loadItems()
+        
         let appearance = UINavigationBarAppearance()
         appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
         appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
@@ -68,7 +70,10 @@ class TodoListViewController: UITableViewController {
         tableView.insertRows(at: [indexPath], with: .fade)
     }
     
-
+    func loadItems() {
+        todoItems = realm.objects(Item.self)
+        tableView.reloadData()
+    }
 }
 
 
