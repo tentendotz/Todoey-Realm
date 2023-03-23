@@ -46,7 +46,7 @@ class CategoryViewController: UITableViewController {
         }
 
         [cancelAction, addAction].forEach { alert.addAction($0) }
-        present(alert, animated: true, completion: nil)
+        present(alert, animated: true)
     }
     
     
