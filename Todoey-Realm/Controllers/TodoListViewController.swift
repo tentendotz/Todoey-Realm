@@ -20,6 +20,8 @@ class TodoListViewController: UITableViewController {
         
         loadItems()
         
+        searchBar.delegate = self
+        
         let appearance = UINavigationBarAppearance()
         appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
         appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
@@ -73,6 +75,26 @@ class TodoListViewController: UITableViewController {
     func loadItems() {
         todoItems = realm.objects(Item.self)
         tableView.reloadData()
+    }
+}
+
+
+//MARK: - Search bar Methods
+
+extension TodoListViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        todoItems = todoItems?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "dateCreated", ascending: true)
+        tableView.reloadData()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.count == 0 {
+            loadItems()
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
+        }
     }
 }
 
