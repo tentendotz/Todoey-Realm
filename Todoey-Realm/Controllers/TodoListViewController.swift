@@ -14,6 +14,7 @@ class TodoListViewController: UITableViewController {
     
     let realm = try! Realm()
     var todoItems: Results<Item>?
+    var selectedCategory: Category?
     
     override func viewDidLoad() {
         super.viewDidLoad()
