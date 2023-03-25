@@ -21,6 +21,7 @@ class TodoListViewController: UITableViewController {
         
         loadItems()
         
+        title = selectedCategory?.name
         searchBar.delegate = self
         
         let appearance = UINavigationBarAppearance()
@@ -74,7 +75,7 @@ class TodoListViewController: UITableViewController {
     }
     
     func loadItems() {
-        todoItems = realm.objects(Item.self)
+        todoItems = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
         tableView.reloadData()
     }
 }
