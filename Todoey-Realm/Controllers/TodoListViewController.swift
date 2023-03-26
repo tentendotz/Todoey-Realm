@@ -46,10 +46,19 @@ class TodoListViewController: UITableViewController {
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
         let addAction = UIAlertAction(title: "Add Item", style: .default) { action in
-            let newItem = Item()
-            newItem.title = textField.text!
-            newItem.dateCreated = Date()
-            // self.save(item: newItem)
+            if let currentCategory = self.selectedCategory {
+                do {
+                    try self.realm.write {
+                        let newItem = Item()
+                        newItem.title = textField.text!
+                        newItem.dateCreated = Date()
+                        currentCategory.items.append(newItem)
+                        self.tableView.reloadData()
+                    }
+                } catch {
+                    print("Error saving new items, \(error)")
+                }
+            }
         }
         
         [cancelAction, addAction].forEach { alert.addAction($0) }
