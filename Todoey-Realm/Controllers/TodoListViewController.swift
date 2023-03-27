@@ -14,12 +14,14 @@ class TodoListViewController: UITableViewController {
     
     let realm = try! Realm()
     var todoItems: Results<Item>?
-    var selectedCategory: Category?
+    var selectedCategory: Category? {
+        didSet {
+            loadItems()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        loadItems()
         
         title = selectedCategory?.name
         searchBar.delegate = self
