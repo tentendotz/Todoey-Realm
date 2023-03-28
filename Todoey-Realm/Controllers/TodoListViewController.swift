@@ -14,12 +14,16 @@ class TodoListViewController: UITableViewController {
     
     let realm = try! Realm()
     var todoItems: Results<Item>?
+    var selectedCategory: Category? {
+        didSet {
+            loadItems()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadItems()
-        
+        title = selectedCategory?.name
         searchBar.delegate = self
         
         let appearance = UINavigationBarAppearance()
@@ -29,6 +33,10 @@ class TodoListViewController: UITableViewController {
         searchBar.barTintColor = UIColor.systemPurple
         navigationItem.standardAppearance = appearance
         navigationItem.scrollEdgeAppearance = appearance
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         guard let navBar = navigationController?.navigationBar else { fatalError("Navigation controller does not exist.") }
         navBar.tintColor = UIColor.white
@@ -44,11 +52,19 @@ class TodoListViewController: UITableViewController {
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
         let addAction = UIAlertAction(title: "Add Item", style: .default) { action in
-            let newItem = Item()
-            newItem.title = textField.text!
-            newItem.done = false
-            newItem.dateCreated = Date()
-            self.save(item: newItem)
+            if let currentCategory = self.selectedCategory {
+                do {
+                    try self.realm.write {
+                        let newItem = Item()
+                        newItem.title = textField.text!
+                        newItem.dateCreated = Date()
+                        currentCategory.items.append(newItem)
+                        self.tableView.reloadData()
+                    }
+                } catch {
+                    print("Error saving new items, \(error)")
+                }
+            }
         }
         
         [cancelAction, addAction].forEach { alert.addAction($0) }
@@ -58,22 +74,8 @@ class TodoListViewController: UITableViewController {
     
     //MARK: - Data Manipulation Methods
     
-    func save(item: Item) {
-        do {
-            try self.realm.write {
-                realm.add(item)
-            }
-        } catch {
-            print("Error saving new items, \(error)")
-        }
-        
-        guard let todoItems else { return }
-        let indexPath = IndexPath(row: todoItems.count - 1, section: 0)
-        tableView.insertRows(at: [indexPath], with: .fade)
-    }
-    
     func loadItems() {
-        todoItems = realm.objects(Item.self)
+        todoItems = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
         tableView.reloadData()
     }
 }
