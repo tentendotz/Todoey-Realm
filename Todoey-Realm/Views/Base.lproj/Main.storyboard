@@ -25,7 +25,7 @@
             </objects>
             <point key="canvasLocation" x="2013" y="113"/>
         </scene>
-        <!--Todoey-->
+        <!--Todoey-Realm-->
         <scene sceneID="CJ2-5V-rhL">
             <objects>
                 <tableViewController id="3tJ-Eh-k1k" customClass="CategoryViewController" customModule="Todoey_Realm" customModuleProvider="target" sceneMemberID="viewController">
@@ -48,7 +48,7 @@
                             <outlet property="delegate" destination="3tJ-Eh-k1k" id="FsL-s2-6ln"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Todoey" id="Sys-Sn-Aeq">
+                    <navigationItem key="navigationItem" title="Todoey-Realm" id="Sys-Sn-Aeq">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="rfa-i3-D0z">
                             <connections>
                                 <action selector="addButtonPressed:" destination="3tJ-Eh-k1k" id="ne3-ld-sed"/>
